@@ -8,8 +8,8 @@ use MartenaSoft\CommonLibrary\Helper\StringHelper;
 use MartenaSoft\ImageBundle\Entity\Image;
 use MartenaSoft\ImageBundle\Service\ImageService;
 use MartenaSoft\SdkBundle\Service\ImageConfigServiceSdk;
-use MartenaSoft\SiteBundle\Dto\ActiveSiteDto;
 use Psr\Log\LoggerInterface;
+use MartenaSoft\SiteBundle\Dto\ActiveSiteDto;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class ImageExtensionRuntime implements RuntimeExtensionInterface

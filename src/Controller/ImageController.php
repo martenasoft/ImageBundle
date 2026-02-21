@@ -7,7 +7,6 @@ use MartenaSoft\CommonLibrary\Dictionary\ImageDictionary;
 use MartenaSoft\CommonLibrary\Helper\StringHelper;
 use MartenaSoft\ImageBundle\Entity\Image;
 use MartenaSoft\ImageBundle\Form\ImageType;
-use MartenaSoft\ImageBundle\Repository\ImageRepository;
 use MartenaSoft\ImageBundle\Service\ImageService;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
