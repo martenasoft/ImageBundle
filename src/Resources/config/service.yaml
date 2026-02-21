@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    MartenaSoft\ImageBundle\:
+        resource: '../../../src/'
+        exclude:
+            - '../../../src/DependencyInjection/'
+            - '../../../src/Entity/'
+
+    image_viewer:
+        alias: 'MartenaSoft\ImageBundle\Controller\ImageController'
+        public: true
