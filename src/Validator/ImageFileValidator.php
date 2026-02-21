@@ -4,7 +4,7 @@ namespace MartenaSoft\ImageBundle\Validator;
 
 use MartenaSoft\CommonLibrary\Dictionary\ImageDictionary;
 use MartenaSoft\SdkBundle\Service\ImageConfigServiceSdk;
-use MartenaSoft\SiteBundle\Service\ActiveSiteService;
+//use MartenaSoft\SiteBundle\Service\ActiveSiteService;
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\File;
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\FileValidator;
 final class ImageFileValidator extends FileValidator
 {
     public function __construct(
-        private readonly ActiveSiteService $activeSiteService,
+      //  private readonly ActiveSiteService $activeSiteService,
         private readonly ImageConfigServiceSdk $imageConfigService
     ) {
 
@@ -30,7 +30,7 @@ final class ImageFileValidator extends FileValidator
             return;
         }
 
-        $data = $this->imageConfigService->get($this->activeSiteService->get());
+     //   $data = $this->imageConfigService->get($this->activeSiteService->get());
         $type = ImageDictionary::TYPES[$value->getType()] ?? null;
 
         if (!isset($data[$type])) {
