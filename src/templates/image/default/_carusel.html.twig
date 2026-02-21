@@ -1,0 +1,27 @@
+{% if images is defined %}
+
+    {% if images|length == 1 %}
+        <img src="{{ images[0].web_path }}" class="d-block w-100" alt="{{ images[0].key }}">
+    {% elseif images|length > 1 %}
+        <div id="carouselImageView" class="carousel slide">
+            <div class="carousel-inner">
+                {% for imageItem in images %}
+                    <div class="carousel-item active">
+                        <img src="{{ imageItem.web_path }}" class="d-block w-100" alt="{{ imageItem.key }}">
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselImageView"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">{{ 'Previous' | trans }}</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselImageView"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">{{ 'Next' | trans }}</span>
+            </button>
+        </div>
+    {% endif %}
+
+{% endif %}

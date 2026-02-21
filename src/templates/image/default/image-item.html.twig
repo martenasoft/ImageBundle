@@ -1,0 +1,23 @@
+
+<div class="card" style="width: 18rem;">
+
+    <img src="{{ item.web_path }}" class="card-img-top" alt="{{ name }}">
+    <div class="card-body">
+        <h5 class="card-title text-truncate" style="max-width: 120px">{{ name }}</h5>
+
+        <p class="card-text">{{ name }}</p>
+
+        <div class="card-text">
+            <div class="btn-group">
+                <a href="{{ path((isMain ? 'admin_image_unset_as_main' : 'admin_image_set_as_main'), {type: type, parentUuid: parentUuid, key: key}) }}" class="btn {{ isMain == false ? 'btn-outline-secondary' : 'btn-outline-primary active' }}">{{ (isMain ? 'Unset as main' : 'Set as main') | trans }}</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-6"><a href="{{ path('admin_delete_image', {key: item.key, type: type, parentUuid: parentUuid}) }}" onclick="return confirm('Delete this image?')" class="btn btn-danger">{{ 'Delete' | trans }}</a></div>
+            <div class="col-6 text-end"><a href="{{ path('admin_show_image', {key: item.key, type: type, parentUuid: parentUuid}) }}" class="btn btn-primary">{{ 'View' | trans }}</a></div>
+        </div>
+
+    </div>
+</div>
+

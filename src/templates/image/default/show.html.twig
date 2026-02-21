@@ -1,0 +1,33 @@
+{% extends '@Admin/' ~ app.request.attributes.get('active_site').templatePath ~ '/base.html.twig' %}
+{% block title %} {{ 'Show image' | trans }} {% endblock %}
+{% block h1 %} {{ 'Show image' | trans }} {% endblock %}
+{% block h1_right %}
+    {% include '@Admin/' ~ app.request.attributes.get('active_site').templatePath ~ '/_view_admin_sub_menu.html.twig' with {
+        createButtonTitle: 'Create image',
+        createButtonPath: path('admin_create_image', {type: type, parentUuid: parentUuid}),
+        items: [
+            {
+                title: 'Delete',
+                path: path('admin_delete_image', {key: key, type: type, parentUuid: parentUuid}),
+                attr: "onclick='return confirm(\"Delete this image?\")'"
+            },
+
+            {
+                title: 'Cancel',
+                path: path('admin_index_image', {type: type, parentUuid: parentUuid}),
+            },
+        ]
+
+    }%}
+{% endblock %}
+
+{% block body %}
+
+    {% include '@Image/' ~ app.request.attributes.get('active_site').templatePath ~ '/_carusel.html.twig' with {images: images} %}
+
+    <hr>
+    <div class="row mt-3">
+        <div class="col-6"><a href="{{ path('admin_index_image', {type: type, parentUuid: parentUuid}) }}" class="btn btn-secondary">{{ 'Cancel' | trans }}</a></div>
+    </div>
+
+{% endblock %}
