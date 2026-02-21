@@ -4,12 +4,9 @@ namespace MartenaSoft\ImageBundle\Service;
 
 
 use Imagine\Exception\NotFoundException;
-use Knp\Component\Pager\Pagination\PaginationInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use MartenaSoft\CommonLibrary\Helper\StringHelper;
-use MartenaSoft\ImageBundle\Entity\Image;
 use MartenaSoft\SdkBundle\Service\ImageConfigServiceSdk;
-use MartenaSoft\SiteBundle\Dto\ActiveSiteDto;
+use MartenaSoft\CommonLibrary\Dto\ActiveSiteDto;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\Form;
