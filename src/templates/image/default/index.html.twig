@@ -1,0 +1,32 @@
+{% extends '@Admin/' ~ app.request.attributes.get('active_site').templatePath ~ '/base.html.twig' %}
+{% block title %}Images{% endblock %}
+{% block h1 %}Images {{ items is defined ? '(' ~ (items|length) ~')' }} {% endblock %}
+{% block h1_right %}
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('admin_create_image', {type: type, parentUuid: parentUuid}) }}">Create
+                image</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% for name, item in items %}
+            <div class="col-6 col-md-4">
+                {% include '@Image/'~ app.request.attributes.get('active_site').templatePath ~'/image-item.html.twig' with {
+                    item: item,
+                    isMain: true,
+                    uuid: parentUuid,
+                    type: type,
+                    key: item.key,
+                    isMain: item.isMain
+                } %}
+            </div>
+        {% else %}
+            {% include '@Admin/' ~ app.request.attributes.get('active_site').templatePath ~ '/no_records_founds.html.twig' %}
+        {% endfor %}
+    </div>
+    <hr>
+    <a href="{{ path('app_'~type~'_update', {uuid: parentUuid}) }}">Return to {{ type }}</a>
+{% endblock %}
