@@ -15,5 +15,29 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "php": "^8.3",
+        "psr/log": "^3.0",
+        "doctrine/orm": "^3.2",
+        "doctrine/doctrine-bundle": "^3.0",
+        "doctrine/persistence": "^4.0",
+        "knplabs/knp-paginator-bundle": "^6.0",
+        "imagine/imagine": "^1.5",
+        "twig/twig": "^3.10",
+        "symfony/config": "^8.0",
+        "symfony/dependency-injection": "^8.0",
+        "symfony/doctrine-bridge": "^8.0",
+        "symfony/form": "^8.0",
+        "symfony/framework-bundle": "^8.0",
+        "symfony/http-foundation": "^8.0",
+        "symfony/http-kernel": "^8.0",
+        "symfony/options-resolver": "^8.0",
+        "symfony/routing": "^8.0",
+        "symfony/security-http": "^8.0",
+        "symfony/validator": "^8.0",
+        "symfony/yaml": "^8.0",
+        "symfony/translation-contracts": "^3.5",
+        "martenasoft/common_library": "^1.1",
+        "martenasoft/sdk_bundle": "^1.0"
+    }
 }
