@@ -28,5 +28,15 @@
         {% endfor %}
     </div>
     <hr>
-    <a href="{{ path('app_'~type~'_update', {uuid: parentUuid}) }}">Return to {{ type }}</a>
+
+    {% if app.request.session is defined and app.request.session.get('return_to')['route'] is defined %}
+        <a href="{{ path(app.request.session.get('return_to').route, (app.request.session.get('return_to').params is defined ? app.request.session.get('return_to').params : null)) }}" >
+          {% if app.request.session.get('return_to').title is defined %}
+              {{ app.request.session.get('return_to').title | trans }}
+          {% else %}
+              {{ "Cancel" | trans }}
+          {% endif %}
+        </a>
+
+    {% endif %}
 {% endblock %}

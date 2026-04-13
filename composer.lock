@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d56ef2c53e3464c8da88baf8dd9595e",
+    "content-hash": "6bbaf4b87c14340fb2f26fb6dc30d058",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -1152,16 +1152,16 @@
         },
         {
             "name": "martenasoft/common_library",
-            "version": "v1.1.4",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/martenasoft/CommonLibrary.git",
-                "reference": "6c5b01a18455a1332c2a0ede3ac747e44a2e6977"
+                "reference": "2555df39b71d691bf9462cbd34a7edf879ed22df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/martenasoft/CommonLibrary/zipball/6c5b01a18455a1332c2a0ede3ac747e44a2e6977",
-                "reference": "6c5b01a18455a1332c2a0ede3ac747e44a2e6977",
+                "url": "https://api.github.com/repos/martenasoft/CommonLibrary/zipball/2555df39b71d691bf9462cbd34a7edf879ed22df",
+                "reference": "2555df39b71d691bf9462cbd34a7edf879ed22df",
                 "shasum": ""
             },
             "type": "library",
@@ -1183,26 +1183,26 @@
             "description": "MartenaSoft Common library",
             "support": {
                 "issues": "https://github.com/martenasoft/CommonLibrary/issues",
-                "source": "https://github.com/martenasoft/CommonLibrary/tree/v1.1.4"
+                "source": "https://github.com/martenasoft/CommonLibrary/tree/v1.0.0"
             },
-            "time": "2026-02-21T18:11:59+00:00"
+            "time": "2025-12-31T17:22:51+00:00"
         },
         {
             "name": "martenasoft/sdk_bundle",
-            "version": "v2.0.0",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/martenasoft/SdkBundle.git",
-                "reference": "b827e5046d5f7b4a98c5367dc4c0e42676c3a5b4"
+                "reference": "70716a9ff327258d7fab39b24afc5fe723fbd705"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/martenasoft/SdkBundle/zipball/b827e5046d5f7b4a98c5367dc4c0e42676c3a5b4",
-                "reference": "b827e5046d5f7b4a98c5367dc4c0e42676c3a5b4",
+                "url": "https://api.github.com/repos/martenasoft/SdkBundle/zipball/70716a9ff327258d7fab39b24afc5fe723fbd705",
+                "reference": "70716a9ff327258d7fab39b24afc5fe723fbd705",
                 "shasum": ""
             },
             "require": {
-                "martenasoft/common_library": "^1.1",
+                "martenasoft/common_library": "^1.0",
                 "symfony/config": "^8.0",
                 "symfony/dependency-injection": "^8.0",
                 "symfony/http-kernel": "8.0"
@@ -1226,9 +1226,9 @@
             "description": "MartenaSoft Sdk Bundle",
             "support": {
                 "issues": "https://github.com/martenasoft/SdkBundle/issues",
-                "source": "https://github.com/martenasoft/SdkBundle/tree/v2.0.0"
+                "source": "https://github.com/martenasoft/SdkBundle/tree/v1.0.0"
             },
-            "time": "2026-02-21T21:48:53+00:00"
+            "time": "2026-04-13T10:44:25+00:00"
         },
         {
             "name": "psr/cache",

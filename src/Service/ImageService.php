@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use MartenaSoft\ImageBundle\Entity\Image;
 
 class ImageService
 {
@@ -94,6 +95,7 @@ class ImageService
     {
         $result = [];
         $configs = $this->imageConfigService->get($activeSiteDto, $type);
+
         if (empty($configs['sizes'])) {
             return [];
         }
@@ -182,6 +184,7 @@ class ImageService
     {
         $sizes = array_keys(($this->imageConfigService->get($activeSiteDto, $type)['sizes'] ?? []));
         $result = [];
+
         foreach ($sizes as $size) {
             $config = $this->getItems($type, $activeSiteDto, [$uuid], $size)[$uuid] ?? [];
 
@@ -200,7 +203,6 @@ class ImageService
                     }
                 }
             }
-
         }
 
         if (empty($result[$key])) {
@@ -255,19 +257,15 @@ class ImageService
     /**
      * @throws \Throwable
      */
-    public function save(Form $form, ActiveSiteDto $activeSiteDto, string $type, string $parentUuid): void
+    public function save(mixed $uploadedFile, Image $image, ActiveSiteDto $activeSiteDto, string $type, string $parentUuid): array
     {
         try {
-            $uploadedFile = $form->get('image')->getData();
-            /** @var Image $image */
-            $image = $form->getData();
-
             if (!$uploadedFile || !$image) {
                 $this->logger->error(self::LOG_PREFIX, [
                     'uploadedFile is wrong' => (!$uploadedFile? 'yes' : 'no'),
                     'image is wrong' => (!$image? 'yes' : 'no'),
                 ]);
-                return;
+                return [];
             }
 
             $originalFilename = uniqid() . '-' . pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -280,12 +278,12 @@ class ImageService
                 $path = DIRECTORY_SEPARATOR . $parentUuid . DIRECTORY_SEPARATOR . ($image->isMain()? 'main' . DIRECTORY_SEPARATOR : '');
                 $config['path'] .= $path;
                 $config['web_path'] .= $path;
-                $this->upload($uploadedFile, $image, $config, $newFilename, $uniqTmp, $parentUuid);
+                $config['after_upload'] = $this->upload($uploadedFile, $image, $config, $newFilename, $uniqTmp, $parentUuid);
                 $config['file'] = $uniqTmp;
             }
 
         } catch (\Throwable $e) {
-            $this->logger->error(self::LOG_PREFIX . ' Error saving in db!', [
+            $this->logger->error(self::LOG_PREFIX . ' Error saving file!', [
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
@@ -293,6 +291,8 @@ class ImageService
             ]);
             throw $e;
         }
+
+        return $configs;
     }
 
     /**
@@ -305,7 +305,7 @@ class ImageService
         string $newFilename,
         string $uniqTmp,
         string $parentUuid
-    ): void
+    ): array
     {
         $resizedPath = StringHelper::pathCleaner($config['path'] . DIRECTORY_SEPARATOR);
         $this->removeFile($image, $config);
@@ -327,7 +327,14 @@ class ImageService
             }
         }
 
+        $filesCount = count(scandir($resizedPath)) - 2;
+        if ($filesCount < 0) {
+            $filesCount = 0;
+        }
+
         $realPath = $uploadedFile->getRealPath();
+        $fileName = sprintf('%09d_%s', $filesCount,  $newFilename);
+        $filePath = sprintf('%s%s', $resizedPath, $fileName);
         if ($config['width'] > 0 && $config['height'] > 0) {
             //Copy temporary file for resizing
             try {
@@ -360,17 +367,19 @@ class ImageService
                 throw $e;
             }
 
-            //Copy resized temporary file to path form config
+
+            //Copy resized temporary file to path from config
             try {
+
                 $this->logger->notice(self::LOG_PREFIX . ' try to copy resized file {_file} to new path {path} ', [
                     '_file' => $uniqTmp,
-                    'path' => $resizedPath . $newFilename,
+                    'path' => $filePath,
                 ]);
-                copy($uniqTmp, $resizedPath . $newFilename);
+                copy($uniqTmp, $filePath);
             } catch (\Throwable $e) {
                 $this->logger->error(self::LOG_PREFIX . ' Error copy resized file {_file} to new path {path}!', [
                     '_file' => $uniqTmp,
-                    'path' => $resizedPath . $newFilename,
+                    'path' => $filePath,
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
                     'line' => $e->getLine(),
@@ -415,6 +424,11 @@ class ImageService
                 throw $e;
             }
         }
+
+        return [
+            'file_name' => $fileName,
+            'resize_path' => $resizedPath,
+        ];
     }
 
     public function getFile(Image $image, array $config): string
